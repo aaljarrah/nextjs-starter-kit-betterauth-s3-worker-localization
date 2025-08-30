@@ -1,0 +1,76 @@
+---
+globs: "*.ts,*.tsx"
+---
+
+# TypeScript Patterns for Easy Ship
+
+## ESLint Rules Enforcement
+This project prohibits the use of `any` type. Always use specific types, `unknown`, or proper type guards.
+
+## SSR-first Types and Contracts
+- Prefer typing server-returned models explicitly (e.g., `ServerSession`, `ServerSessionUser` in `lib/auth-server.ts`).
+- When client islands need data, pass typed props from Server Components instead of re-fetching.
+- Avoid adding broad unions to accommodate client/server differences; narrow types at the boundary and transform as needed.
+
+## Error Handling Patterns
+Handle errors with typed narrowing and rethrow after logging when needed:
+
+```typescript
+try {
+  // operation
+} catch (error) {
+  const err = error instanceof Error ? error : new Error('Unknown error');
+  console.error(err.message);
+  throw err;
+}
+```
+
+## External Library Type Extensions
+Create proper interface extensions instead of using broad type assertions:
+
+```typescript
+interface ApiClient {
+  get<T>(path: string): Promise<T>;
+}
+
+interface TypedApiClient extends ApiClient {
+  getUser(userId: string): Promise<User>;
+}
+```
+
+## Type Guards for Unknown Data
+Always validate unknown data with type guards:
+
+```typescript
+function isValidConfig(config: unknown): config is Config {
+  return (
+    typeof config === 'object' &&
+    config !== null &&
+    'serviceName' in config &&
+    typeof (config as Config).serviceName === 'string'
+  );
+}
+```
+
+## Environment Variable Handling
+Always provide defaults and proper typing:
+
+```typescript
+const config = {
+  appName: process.env.APP_NAME ?? 'easy-ship',
+  port: Number(process.env.PORT ?? 3000),
+  isProduction: process.env.NODE_ENV === 'production',
+};
+```
+
+## Safe Property Access
+Use optional chaining and nullish coalescing:
+
+```typescript
+// Safe property access with type checking
+const userAgent = 'headers' in request && 
+  request.headers && 
+  typeof request.headers === 'object'
+    ? (request.headers as Record<string, string | string[]>)['user-agent'] || 'unknown'
+    : 'unknown';
+```

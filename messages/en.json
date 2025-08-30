@@ -1,0 +1,73 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "reset": "Reset"
+  },
+  "navigation": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login"
+  },
+  "theme": {
+    "light": "Light mode",
+    "dark": "Dark mode",
+    "system": "System mode",
+    "toggle": "Toggle theme"
+  },
+  "language": {
+    "english": "English",
+    "arabic": "العربية",
+    "switch": "Switch language"
+  },
+  "app": {
+    "title": "Starter Kit - Modern Web App",
+    "description": "A modern Next.js starter kit featuring authentication, jobs, logging, and i18n."
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "register": "Register",
+    "name": "Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot Password?",
+    "noAccount": "Don't have an account?",
+    "haveAccount": "Already have an account?",
+    "signInWith": "Sign in with",
+    "orContinueWith": "Or continue with",
+    "welcomeBack": "Welcome back",
+    "createAccount": "Create your account",
+    "loginDescription": "Enter your credentials to access your account",
+    "registerDescription": "Enter your details to create your account",
+    "loggingIn": "Signing in...",
+    "registering": "Creating account...",
+    "loginError": "Failed to sign in",
+    "registerError": "Failed to create account",
+    "invalidCredentials": "Invalid email or password",
+    "emailRequired": "Email is required",
+    "nameRequired": "Name is required",
+    "passwordRequired": "Password is required",
+    "emailInvalid": "Please enter a valid email address",
+    "passwordMinLength": "Password must be at least 8 characters",
+    "passwordsMatch": "Passwords must match",
+    "loginSuccess": "Successfully signed in",
+    "registerSuccess": "Account created successfully",
+    "logoutSuccess": "Successfully signed out"
+  }
+}

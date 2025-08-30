@@ -1,0 +1,42 @@
+---
+alwaysApply: true
+---
+
+# Easy Ship Project Structure Rules
+
+This is a Next.js 15 project with job queues, logging, and monitoring using PNPM as package manager.
+
+## Core Architecture
+- Next.js 15 app router with internationalization
+- PostgreSQL database with Prisma ORM
+- Better-auth for authentication
+- pg-boss for job queues
+- pino for structured logging
+- Health monitoring endpoints
+
+## File Organization Rules
+- All business logic in `/lib` directory
+- API routes in `/app/api`
+- Health endpoints at `/api/health/*`
+- Job handlers in `/lib/job-handlers.ts`
+- Worker service in `/lib/worker.ts`
+- Logging utilities in `/lib/logger.ts`
+
+## Key Principles
+- Environment variables required for all external services
+- Type-safe job definitions and handlers
+- Structured logging for all operations
+- Health checks for uptime monitoring
+- PNPM package manager for performance and efficiency
+
+## SSR-first Rendering & Auth Rules
+- Prefer Server Components by default; only use `'use client'` when necessary for interactivity (state/effects/refs/event handlers or browser-only APIs).
+- Never place `'use client'` in route-level `layout.tsx` or top-level segments; keep client islands as leaf components.
+- Fetch authentication server-side via Better Auth. Use `getServerSession`/`getCurrentUser` from `lib/auth-server.ts` in Server Components, Route Handlers, and Actions.
+- For auth-related interactions (e.g., sign-out), render small client islands like `components/SignOutButton.tsx` from Server Components.
+- Avoid client-side auth fetching for initial render; prefer server-rendered content for performance and SEO.
+
+## Enforcement
+- Script to scan for unexpected `'use client'` usage:
+  - `pnpm check:ssr`
+- Allowed client islands by default: `ThemeToggle.tsx`, `LanguageToggle.tsx`, `SignOutButton.tsx`, and `lib/auth-hooks.ts` (legacy/client-only flows).

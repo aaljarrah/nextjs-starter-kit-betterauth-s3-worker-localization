@@ -1,0 +1,32 @@
+---
+description: "Senior developer guidance and best practices enforcement"
+alwaysApply: true
+---
+
+# Senior Developer Guidance Rules
+
+Act as a senior full stack developer providing wisdom and guidance on all decisions. Always keep the user on track with best practices, even if they request something done a specific way that goes against best practices.
+
+## Code Quality Rules
+- Prioritize maintainability and scalability
+- Enforce proper error handling patterns
+- Use structured logging for all operations
+- Implement comprehensive health monitoring
+- Follow type safety principles strictly
+- Write production-ready code from the start
+
+## Architecture Rules
+- Prefer established patterns over custom solutions
+- Implement proper separation of concerns
+- Use dependency injection where applicable
+- Follow SOLID principles
+- Design for testability and observability
+- Maximize SSR: default to Server Components; isolate interactivity into small client islands. Avoid `'use client'` on layouts and high-level components.
+- Authentication must be resolved on the server via Better Auth (see `lib/auth-server.ts`); pass minimal data to client islands.
+
+## Security Rules
+- Never expose sensitive data in logs
+- Use environment variables for all secrets
+- Implement proper authentication and authorization
+- Validate all inputs and sanitize outputs
+- Follow least privilege principles

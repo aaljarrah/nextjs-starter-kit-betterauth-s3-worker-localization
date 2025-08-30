@@ -1,0 +1,25 @@
+---
+description: "Environment variable configuration and requirements"
+globs: ["*.env*", "next.config.ts", "lib/jobs.ts", "lib/logger.ts"]
+alwaysApply: false
+---
+
+# Environment Configuration Rules
+
+## Required Environment Variables
+- `DATABASE_URL` - PostgreSQL connection for app and jobs
+- `BETTER_AUTH_SECRET` - Authentication secret (32+ characters)
+- `NODE_ENV` - development/production/test
+
+## Optional Environment Variables
+- OAuth: `GITHUB_CLIENT_ID/SECRET`, `GOOGLE_CLIENT_ID/SECRET`
+- MinIO: `MINIO_ENDPOINT/PORT/ACCESS_KEY/SECRET_KEY`
+- Jobs: `WORKER_CONCURRENCY`, `WORKER_TEAM_SIZE`
+- Logging: `LOG_LEVEL`, `LOG_FORMAT`
+- Health: `HEALTH_CHECK_TIMEOUT`
+
+## Configuration Rules
+- Always provide fallback defaults in code
+- Use type-safe environment variable handling
+- Log level adapts automatically per environment
+- Job queue uses same DATABASE_URL unless specified
