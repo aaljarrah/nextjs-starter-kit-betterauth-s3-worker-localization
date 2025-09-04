@@ -27,34 +27,34 @@ export default async function middleware(request: NextRequest) {
   const locale = locales.includes(pathnameLocale as (typeof locales)[number]) ? pathnameLocale : defaultLocale
 
   // Define public routes that don't require authentication
-  const publicRoutes = [`/${locale}/login`, `/${locale}/register`]
+  const publicRoutes = [`/${locale}/login`, `/${locale}/register`, '/register', '/login']
   const isPublicRoute = publicRoutes.some(route => pathname.startsWith(route))
 
   if (isPublicRoute) {
     return response
   }
 
-  // // Check authentication for protected routes
-  // try {
-  //   const session = await auth.api.getSession({
-  //     headers: request.headers
-  //   })
+  // Check authentication for protected routes
+  try {
+    const session = await auth.api.getSession({
+      headers: request.headers
+    })
 
-  //   if (!session) {
-  //     // Redirect to login if not authenticated
-  //     const loginUrl = new URL(`/${locale}/login`, request.url)
-  //     loginUrl.searchParams.set('redirect', pathname)
-  //     return NextResponse.redirect(loginUrl)
-  //   }
+    if (!session) {
+      // Redirect to login if not authenticated
+      const loginUrl = new URL(`/${locale}/login`, request.url)
+      loginUrl.searchParams.set('redirect', pathname)
+      return NextResponse.redirect(loginUrl)
+    }
 
-  //   return response
-  // } catch (error) {
-  //   console.error('Auth middleware error:', error)
-  //   // On auth error, redirect to login
-  //   const loginUrl = new URL(`/${locale}/login`, request.url)
-  //   loginUrl.searchParams.set('redirect', pathname)
-  //   return NextResponse.redirect(loginUrl)
-  // }
+    return response
+  } catch (error) {
+    console.error('Auth middleware error:', error)
+    // On auth error, redirect to login
+    const loginUrl = new URL(`/${locale}/login`, request.url)
+    loginUrl.searchParams.set('redirect', pathname)
+    return NextResponse.redirect(loginUrl)
+  }
 }
 
 export const config = {
